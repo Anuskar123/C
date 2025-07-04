@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Ultimate Question Bank - Interactive Study Guide</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="main-title">
+                    <span class="title-cpp">C++</span>
+                    <span class="title-ultimate">ULTIMATE</span>
+                    <span class="title-question">QUESTION BANK</span>
+                </h1>
+                <p class="subtitle">📚 Comprehensive Study Guide - Covering ALL 9 Weeks + Additional Exercises</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">9</span>
+                        <span class="stat-label">Weeks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Questions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Types</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav-header">
+            <button class="hamburger-btn" id="hamburgerBtn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <span class="current-tab-title">📖 Overview</span>
+        </div>
+
+        <!-- Mobile Menu Backdrop -->
+        <div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs" id="navTabs">
+            <button class="nav-tab active" data-tab="overview">📖 Overview</button>
+            <button class="nav-tab" data-tab="quick-ref">🚀 Quick Reference</button>
+            <button class="nav-tab" data-tab="week1">Week 1</button>
+            <button class="nav-tab" data-tab="week2">Week 2</button>
+            <button class="nav-tab" data-tab="week3">Week 3</button>
+            <button class="nav-tab" data-tab="week4">Week 4</button>
+            <button class="nav-tab" data-tab="week5">Week 5</button>
+            <button class="nav-tab" data-tab="week6">Week 6</button>
+            <button class="nav-tab" data-tab="week7">Week 7</button>
+            <button class="nav-tab" data-tab="week8">Week 8</button>
+            <button class="nav-tab" data-tab="week9">Week 9</button>
+            <button class="nav-tab" data-tab="mixed">🎯 Mixed</button>
+            <button class="nav-tab" data-tab="mock-exam">📝 Mock Exam</button>
+            <button class="nav-tab" data-tab="tca-mock">📋 TCA Mock</button>
+        </nav>
+
+        <!-- Content Sections -->
+        <main class="main-content">
+            
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="section-header">
+                    <h2>📚 C++ Ultimate Question Bank - Complete Learning Path</h2>
+                    <p>Your comprehensive guide to mastering C++ programming from basics to advanced concepts</p>
+                </div>
+
+                <!-- Learning Progress Summary -->
+                <div class="progress-summary">
+                    <div class="progress-header">
+                        <h3>🎯 Your Learning Journey</h3>
+                        <p>Track your progress through 9 comprehensive weeks of C++ mastery</p>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-item">
+                            <span class="progress-number">150+</span>
+                            <span class="progress-label">Practice Questions</span>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-number">9</span>
+                            <span class="progress-label">Learning Modules</span>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-number">50+</span>
+                            <span class="progress-label">Code Examples</span>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-number">100%</span>
+                            <span class="progress-label">Hands-on Practice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Path Overview -->
+                <div class="learning-path">
+                    <h3>🛤️ What You'll Master</h3>
+                    <div class="path-timeline">
+                        <div class="path-item">
+                            <div class="path-icon">🏗️</div>
+                            <div class="path-content">
+                                <h4>Foundation (Weeks 1-2)</h4>
+                                <p>C++ basics, variables, data types, input/output, and control structures</p>
+                            </div>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-icon">🔧</div>
+                            <div class="path-content">
+                                <h4>Core Concepts (Weeks 3-5)</h4>
+                                <p>Functions, arrays, strings, and structured programming</p>
+                            </div>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-icon">💡</div>
+                            <div class="path-content">
+                                <h4>Advanced Topics (Weeks 6-7)</h4>
+                                <p>Pointers, dynamic memory, and file operations</p>
+                            </div>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-icon">🚀</div>
+                            <div class="path-content">
+                                <h4>Mastery (Weeks 8-9)</h4>
+                                <p>Object-oriented programming, classes, and advanced C++ features</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week Cards Grid -->
+                <div class="section-header">
+                    <h3>📋 Weekly Breakdown</h3>
+                    <p>Click on any week to dive into detailed explanations and practice questions</p>
+                </div>
+
+                <div class="week-grid">
+                    <div class="week-card" data-week="week1">
+                        <div class="week-header">
+                            <span class="week-number">Week 1</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Basic Input/Output & Variables</h3>
+                        <ul>
+                            <li>Hello World Variations</li>
+                            <li>Variable Types & Declaration</li>
+                            <li>Input/Output Operations</li>
+                            <li>Temperature Conversions</li>
+                            <li>Ticket Price Calculations</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag easy">⭐ Easy</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week2">
+                        <div class="week-header">
+                            <span class="week-number">Week 2</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Control Structures & Loops</h3>
+                        <ul>
+                            <li>If-Else Statements</li>
+                            <li>Loops (for, while, do-while)</li>
+                            <li>Nested Loops & Patterns</li>
+                            <li>Prime Numbers & Factorials</li>
+                            <li>Number Guessing Games</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag easy">⭐ Easy</span>
+                            <span class="tag medium">⭐⭐ Medium</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week3">
+                        <div class="week-header">
+                            <span class="week-number">Week 3</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Functions</h3>
+                        <ul>
+                            <li>Function Declaration & Definition</li>
+                            <li>Parameter Passing</li>
+                            <li>Return Values</li>
+                            <li>Function Overloading</li>
+                            <li>Scope & Local Variables</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week4">
+                        <div class="week-header">
+                            <span class="week-number">Week 4</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Arrays</h3>
+                        <ul>
+                            <li>1D Arrays</li>
+                            <li>2D Arrays</li>
+                            <li>Array Processing</li>
+                            <li>Searching & Validation</li>
+                            <li>Statistical Calculations</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                            <span class="tag hard">⭐⭐⭐ Hard</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week5">
+                        <div class="week-header">
+                            <span class="week-number">Week 5</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Sorting & Searching</h3>
+                        <ul>
+                            <li>Bubble Sort</li>
+                            <li>Selection Sort</li>
+                            <li>Insertion Sort</li>
+                            <li>Binary Search</li>
+                            <li>Vector Operations</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                            <span class="tag hard">⭐⭐⭐ Hard</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week6">
+                        <div class="week-header">
+                            <span class="week-number">Week 6</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Pointers & Dynamic Memory</h3>
+                        <ul>
+                            <li>Pointer Basics</li>
+                            <li>Dynamic Memory Allocation</li>
+                            <li>Pointer Arithmetic</li>
+                            <li>Arrays & Pointers</li>
+                            <li>Memory Management</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                            <span class="tag hard">⭐⭐⭐ Hard</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week7">
+                        <div class="week-header">
+                            <span class="week-number">Week 7</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Strings & C-strings</h3>
+                        <ul>
+                            <li>String Class</li>
+                            <li>C-string Functions</li>
+                            <li>String Manipulation</li>
+                            <li>Character Processing</li>
+                            <li>String Algorithms</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week8">
+                        <div class="week-header">
+                            <span class="week-number">Week 8</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Structures</h3>
+                        <ul>
+                            <li>Structure Definition</li>
+                            <li>Structure Members</li>
+                            <li>Arrays of Structures</li>
+                            <li>Structure Functions</li>
+                            <li>Data Organization</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag medium">⭐⭐ Medium</span>
+                        </div>
+                    </div>
+
+                    <div class="week-card" data-week="week9">
+                        <div class="week-header">
+                            <span class="week-number">Week 9</span>
+                            <span class="week-status">✓</span>
+                        </div>
+                        <h3>Recursion</h3>
+                        <ul>
+                            <li>Recursive Functions</li>
+                            <li>Base Cases</li>
+                            <li>Recursive Algorithms</li>
+                            <li>Tail Recursion</li>
+                            <li>Iterative vs Recursive</li>
+                        </ul>
+                        <div class="difficulty-tags">
+                            <span class="tag hard">⭐⭐⭐ Hard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-types">
+                    <h3>🎯 Question Types Available</h3>
+                    <div class="type-grid">
+                        <div class="type-card mcq">
+                            <div class="type-icon">🧠</div>
+                            <h4>Multiple Choice Questions (MCQs)</h4>
+                            <p>4 options with detailed explanations, tricky but simple concepts, common mistake patterns</p>
+                        </div>
+                        <div class="type-card error">
+                            <div class="type-icon">🔍</div>
+                            <h4>Find the Error</h4>
+                            <p>Buggy code snippets, logical errors, syntax issues, runtime problems</p>
+                        </div>
+                        <div class="type-card output">
+                            <div class="type-icon">📊</div>
+                            <h4>Predict the Output</h4>
+                            <p>Code execution tracing, variable value tracking, loop iterations, function calls</p>
+                        </div>
+                        <div class="type-card complete">
+                            <div class="type-icon">✍️</div>
+                            <h4>Complete the Code</h4>
+                            <p>Half-written programs, missing logic pieces, function implementations, algorithm completions</p>
+                        </div>
+                        <div class="type-card brain">
+                            <div class="type-icon">🎯</div>
+                            <h4>Brain Teasers</h4>
+                            <p>Simple but confusing logic, edge case scenarios, operator precedence tricks, memory concept puzzles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Weekly Breakdown -->
+                <div class="detailed-breakdown">
+                    <h3>📖 Detailed Study Guide</h3>
+                    <p>Each week includes comprehensive explanations, practice questions, and coding exercises</p>
+                    
+                    <div class="week-details-grid">
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 1</span>
+                                <h4>Basic Input/Output & Variables</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>Program structure (#include, using namespace, main())</li>
+                                    <li>Data types (int, double, char, string, bool)</li>
+                                    <li>Variable declaration and initialization</li>
+                                    <li>Constants and const keyword</li>
+                                    <li>cin/cout input/output operations</li>
+                                    <li>Mathematical operations and expressions</li>
+                                </ul>
+                                <h5>💻 Practice Projects:</h5>
+                                <ul>
+                                    <li>Hello World variations with escape sequences</li>
+                                    <li>Temperature conversion (Celsius ↔ Fahrenheit)</li>
+                                    <li>Stadium ticket pricing calculator</li>
+                                    <li>Currency converter (USD to Yen/Euros)</li>
+                                    <li>Test score average calculator</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 2</span>
+                                <h4>Control Structures & Loops</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>if-else statements and nested conditions</li>
+                                    <li>Switch statements for multiple conditions</li>
+                                    <li>for loops with initialization, condition, increment</li>
+                                    <li>while and do-while loops</li>
+                                    <li>Nested loops for patterns and matrices</li>
+                                    <li>Loop control: break and continue</li>
+                                </ul>
+                                <h5>💻 Practice Projects:</h5>
+                                <ul>
+                                    <li>Number guessing game with validation</li>
+                                    <li>Prime number checker and generator</li>
+                                    <li>Factorial calculator using loops</li>
+                                    <li>Pattern printing (stars, numbers, triangles)</li>
+                                    <li>Grade calculator with letter assignments</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 3</span>
+                                <h4>Functions</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>Function declaration and definition</li>
+                                    <li>Parameters: pass by value vs reference</li>
+                                    <li>Return types and return statements</li>
+                                    <li>Function overloading and default arguments</li>
+                                    <li>Scope: local vs global variables</li>
+                                    <li>Inline functions and static variables</li>
+                                </ul>
+                                <h5>💻 Practice Projects:</h5>
+                                <ul>
+                                    <li>Distance calculator (speed × time)</li>
+                                    <li>Min/max finding functions</li>
+                                    <li>Power function with default arguments</li>
+                                    <li>Function call counter without globals</li>
+                                    <li>Value swapping using references</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 4</span>
+                                <h4>Arrays</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>1D array declaration, initialization, access</li>
+                                    <li>2D arrays and matrix operations</li>
+                                    <li>Array processing: searching, sorting</li>
+                                    <li>Statistical calculations (sum, average, min/max)</li>
+                                    <li>Array bounds and memory management</li>
+                                    <li>Passing arrays to functions</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 5</span>
+                                <h4>Strings</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>C-style strings vs C++ string class</li>
+                                    <li>String manipulation functions</li>
+                                    <li>Character arrays and null termination</li>
+                                    <li>String comparison and concatenation</li>
+                                    <li>String input/output operations</li>
+                                    <li>String algorithms and processing</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 6</span>
+                                <h4>Pointers</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>Pointer declaration and initialization</li>
+                                    <li>Address operator (&) and dereference (*)</li>
+                                    <li>Pointer arithmetic and array relationships</li>
+                                    <li>Dynamic memory allocation (new/delete)</li>
+                                    <li>Pointer functions and return values</li>
+                                    <li>Common pointer pitfalls and best practices</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 7</span>
+                                <h4>File Operations</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>File streams: ifstream, ofstream, fstream</li>
+                                    <li>Opening, reading, writing, and closing files</li>
+                                    <li>File modes and error handling</li>
+                                    <li>Text vs binary file operations</li>
+                                    <li>File positioning and random access</li>
+                                    <li>Data persistence and file formats</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 8</span>
+                                <h4>Classes & Objects</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>Class definition and object instantiation</li>
+                                    <li>Member variables and member functions</li>
+                                    <li>Constructors and destructors</li>
+                                    <li>Access specifiers: private, public, protected</li>
+                                    <li>Encapsulation and data hiding</li>
+                                    <li>Class composition and relationships</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="week-detail-card">
+                            <div class="week-detail-header">
+                                <span class="week-badge">Week 9</span>
+                                <h4>Advanced OOP</h4>
+                            </div>
+                            <div class="week-topics">
+                                <h5>🎯 Key Topics:</h5>
+                                <ul>
+                                    <li>Inheritance and derived classes</li>
+                                    <li>Polymorphism and virtual functions</li>
+                                    <li>Abstract classes and interfaces</li>
+                                    <li>Operator overloading</li>
+                                    <li>Static members and friend functions</li>
+                                    <li>Advanced C++ features and best practices</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Week Content Sections -->
+            <section id="week1" class="content-section">
+                <div class="loading">Loading Week 1 content...</div>
+            </section>
+
+            <section id="week2" class="content-section">
+                <div class="loading">Loading Week 2 content...</div>
+            </section>
+
+            <section id="week3" class="content-section">
+                <div class="loading">Loading Week 3 content...</div>
+            </section>
+
+            <section id="week4" class="content-section">
+                <div class="loading">Loading Week 4 content...</div>
+            </section>
+
+            <section id="week5" class="content-section">
+                <div class="loading">Loading Week 5 content...</div>
+            </section>
+
+            <section id="week6" class="content-section">
+                <div class="loading">Loading Week 6 content...</div>
+            </section>
+
+            <section id="week7" class="content-section">
+                <div class="loading">Loading Week 7 content...</div>
+            </section>
+
+            <section id="week8" class="content-section">
+                <div class="loading">Loading Week 8 content...</div>
+            </section>
+
+            <section id="week9" class="content-section">
+                <div class="loading">Loading Week 9 content...</div>
+            </section>
+
+            <section id="mixed" class="content-section">
+                <div class="loading">Loading Mixed Challenges content...</div>
+            </section>
+
+            <section id="additional" class="content-section">
+                <div class="loading">Loading Additional Exercises content...</div>
+            </section>
+
+            <!-- Quick Reference Section -->
+            <section id="quick-ref" class="content-section">
+                <div class="section-header">
+                    <h2>🚀 Quick Reference Cheat Sheet</h2>
+                    <p>Essential C++ syntax & concepts at your fingertips</p>
+                </div>
+
+                <div class="reference-grid">
+                    <div class="ref-card">
+                        <h3>📚 Basic Syntax</h3>
+                        <div class="code-block">
+                            <h4>🔥 Program Structure:</h4>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+int main() {
+    // Your code here
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <h4>🔥 Variable Declarations:</h4>
+                            <pre><code class="language-cpp">int age = 25;              // Integer
+double price = 19.99;      // Decimal number
+char grade = 'A';          // Single character
+string name = "John";      // String of characters
+bool isTrue = true;        // Boolean (true/false)</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <h4>🔥 Input/Output:</h4>
+                            <pre><code class="language-cpp">cout &lt;&lt; "Hello World!";    // Output
+cin &gt;&gt; variable;           // Input (stops at whitespace)
+getline(cin, stringVar);   // Input entire line</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="ref-card">
+                        <h3>🔄 Control Structures</h3>
+                        <div class="code-block">
+                            <h4>🔥 IF-ELSE:</h4>
+                            <pre><code class="language-cpp">if (condition) {
+    // code
+} else if (condition2) {
+    // code
+} else {
+    // code
+}</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <h4>🔥 LOOPS:</h4>
+                            <pre><code class="language-cpp">// For loop
+for (int i = 0; i < 10; i++) {
+    // code
+}
+// While loop
+while (condition) {
+    // code
+}
+// Do-while loop
+do {
+    // code
+} while (condition);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="ref-card">
+                        <h3>🎯 Functions</h3>
+                        <div class="code-block">
+                            <h4>🔥 Function Syntax:</h4>
+                            <pre><code class="language-cpp">returnType functionName(parameters) {
+    // code
+    return value;  // if not void
+}
+// Examples:
+int add(int a, int b) {
+    return a + b;
+}
+void printMessage() {
+    cout << "Hello!";
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="ref-card">
+                        <h3>📊 Arrays</h3>
+                        <div class="code-block">
+                            <h4>🔥 Array Basics:</h4>
+                            <pre><code class="language-cpp">int arr[5];                    // Declaration
+int arr[5] = {1, 2, 3, 4, 5}; // Initialization
+int arr[] = {1, 2, 3};        // Size inferred
+// Accessing elements
+arr[0] = 10;   // First element
+arr[4] = 50;   // Last element (for size 5)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="ref-card">
+                        <h3>🔗 Pointers</h3>
+                        <div class="code-block">
+                            <h4>🔥 Pointer Basics:</h4>
+                            <pre><code class="language-cpp">int x = 10;
+int* ptr = &x;     // ptr holds address of x
+cout << *ptr;      // Dereference: get value at address
+*ptr = 20;         // Change value through pointer</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="ref-card">
+                        <h3>🚨 Common Mistakes</h3>
+                        <ul class="mistake-list">
+                            <li>❌ Using = instead of == in conditions</li>
+                            <li>❌ Array bounds violations (accessing arr[size])</li>
+                            <li>❌ Forgetting to initialize variables</li>
+                            <li>❌ Memory leaks (new without delete)</li>
+                            <li>❌ Missing base case in recursion</li>
+                            <li>❌ Integer division when expecting decimal</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Week Content Sections -->
+            <section id="week1" class="content-section">
+                <div class="loading">Loading Week 1 content...</div>
+            </section>
+
+            <section id="week2" class="content-section">
+                <div class="loading">Loading Week 2 content...</div>
+            </section>
+
+            <section id="week3" class="content-section">
+                <div class="loading">Loading Week 3 content...</div>
+            </section>
+
+            <section id="week4" class="content-section">
+                <div class="loading">Loading Week 4 content...</div>
+            </section>
+
+            <section id="week5" class="content-section">
+                <div class="loading">Loading Week 5 content...</div>
+            </section>
+
+            <section id="week6" class="content-section">
+                <div class="loading">Loading Week 6 content...</div>
+            </section>
+
+            <section id="week7" class="content-section">
+                <div class="loading">Loading Week 7 content...</div>
+            </section>
+
+            <section id="week8" class="content-section">
+                <div class="loading">Loading Week 8 content...</div>
+            </section>
+
+            <section id="week9" class="content-section">
+                <div class="loading">Loading Week 9 content...</div>
+            </section>
+
+            <section id="mixed" class="content-section">
+                <div class="loading">Loading Mixed Challenges content...</div>
+            </section>
+
+            <section id="mock-exam" class="content-section">
+                <div class="loading">Loading Mock Exam content...</div>
+            </section>
+
+            <section id="tca-mock" class="content-section">
+                <div class="loading">Loading TCA Mock Exam content...</div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/week1-questions.js"></script>
+    <script src="js/week2-questions.js"></script>
+    <script src="js/week3-questions.js"></script>
+    <script src="js/week4-questions.js"></script>
+    <script src="js/week5-questions.js"></script>
+    <script src="js/week6-questions.js"></script>
+    <script src="js/week7-questions.js"></script>
+    <script src="js/week8-questions.js"></script>
+    <script src="js/week9-questions.js"></script>
+    <script src="js/mixed-questions.js"></script>
+    <script src="js/mock-exam.js"></script>
+    <script src="js/tca-mock.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
