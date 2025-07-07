@@ -586,6 +586,247 @@ function toggleOperatorPrecedence() {
     }
 }
 
+// Ultimate Exam functionality
+function showExamPreview() {
+    // Check if mixed exam engine is available
+    if (typeof mixedExamEngine === 'undefined') {
+        alert('⚠️ Exam system not loaded. Please refresh the page and try again.');
+        return;
+    }
+    
+    // Get statistics from mixed exam engine
+    const stats = mixedExamEngine.getQuestionStatistics();
+    const presets = mixedExamEngine.getExamPresets();
+    
+    // Create modal with exam preview
+    const modal = document.createElement('div');
+    modal.className = 'exam-preview-modal';
+    modal.innerHTML = `
+        <div class="modal-backdrop" onclick="closeExamPreview()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎓 Ultimate Exam System Preview</h3>
+                <button class="modal-close" onclick="closeExamPreview()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-stats">
+                    <h4>📊 Available Questions</h4>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-number">${stats.totalQuestions}</span>
+                            <span class="stat-label">Total Questions</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">${Object.keys(stats.bySource).length}</span>
+                            <span class="stat-label">Question Banks</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">${Object.keys(presets).length}</span>
+                            <span class="stat-label">Exam Presets</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-features">
+                    <h4>✨ Key Features</h4>
+                    <ul>
+                        <li>🎲 Fully randomized questions from all sources</li>
+                        <li>⏱️ Professional timer with warnings</li>
+                        <li>📋 Question navigation and review system</li>
+                        <li>💾 Auto-save progress</li>
+                        <li>📊 Detailed results and performance analysis</li>
+                        <li>🔄 Retake capability with different questions</li>
+                    </ul>
+                </div>
+                
+                <div class="preview-sources">
+                    <h4>📚 Question Sources</h4>
+                    <div class="sources-grid">
+                        ${Object.entries(stats.bySource).map(([source, count]) => `
+                            <div class="source-item">
+                                <span class="source-name">${source}</span>
+                                <span class="source-count">${count} questions</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeExamPreview()">Close Preview</button>
+                <button class="btn btn-primary" onclick="launchExam()">🚀 Launch Exam System</button>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to page
+    document.body.appendChild(modal);
+    
+    // Add some basic styles for the modal
+    if (!document.querySelector('#exam-preview-styles')) {
+        const styles = document.createElement('style');
+        styles.id = 'exam-preview-styles';
+        styles.textContent = `
+            .exam-preview-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-backdrop {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+            }
+            .modal-content {
+                position: relative;
+                background: white;
+                border-radius: 12px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+            .modal-header {
+                padding: 20px;
+                border-bottom: 1px solid #eee;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+            }
+            .modal-body {
+                padding: 20px;
+            }
+            .modal-footer {
+                padding: 20px;
+                border-top: 1px solid #eee;
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+            }
+            .preview-stats, .preview-features, .preview-sources {
+                margin-bottom: 20px;
+            }
+            .stats-row {
+                display: flex;
+                gap: 20px;
+                margin-top: 10px;
+            }
+            .stat-item {
+                text-align: center;
+                flex: 1;
+            }
+            .stat-number {
+                display: block;
+                font-size: 24px;
+                font-weight: bold;
+                color: #0066cc;
+            }
+            .stat-label {
+                display: block;
+                font-size: 12px;
+                color: #666;
+            }
+            .sources-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
+                margin-top: 10px;
+            }
+            .source-item {
+                padding: 10px;
+                background: #f5f5f5;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+            }
+            .source-name {
+                font-weight: 500;
+            }
+            .source-count {
+                color: #666;
+                font-size: 14px;
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+}
+
+function closeExamPreview() {
+    const modal = document.querySelector('.exam-preview-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function launchExam() {
+    window.open('exam.html', '_blank');
+    closeExamPreview();
+}
+
+// Initialize exam preset buttons when page loads
+function initializeExamPresets() {
+    const presetButtons = document.querySelectorAll('.btn-preset');
+    console.log('Found preset buttons:', presetButtons.length);
+    
+    presetButtons.forEach((button, index) => {
+        console.log(`Setting up preset button ${index + 1}:`, button.getAttribute('data-preset'));
+        
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const preset = this.getAttribute('data-preset');
+            console.log('Preset button clicked:', preset);
+            
+            // Store preset in localStorage so exam.html can use it
+            localStorage.setItem('selectedExamPreset', preset);
+            console.log('Stored preset in localStorage:', preset);
+            
+            // Launch exam
+            const examWindow = window.open('exam.html', '_blank');
+            if (!examWindow) {
+                alert('⚠️ Pop-up blocked! Please allow pop-ups for this site or try again.');
+            } else {
+                console.log('Exam window opened successfully');
+            }
+        });
+    });
+    
+    console.log('Exam preset buttons initialized successfully');
+}
+
+// Call initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing initialization code...
+    
+    // Initialize exam presets after a delay to ensure all scripts load
+    setTimeout(() => {
+        console.log('Initializing exam presets...');
+        initializeExamPresets();
+        
+        // Also check if mixed exam engine is available for debugging
+        if (typeof mixedExamEngine !== 'undefined') {
+            console.log('Mixed exam engine is available on index page');
+        } else {
+            console.log('Mixed exam engine not yet loaded on index page');
+        }
+    }, 2000); // Increased delay to ensure scripts load
+});
+
 // Initialize the application
 console.log('C++ Ultimate Question Bank initialized!');
 if (window.week1Data) {

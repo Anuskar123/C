@@ -65,6 +65,7 @@
             <button class="nav-tab" data-tab="mixed">🎯 Mixed</button>
             <button class="nav-tab" data-tab="mock-exam">📝 Mock Exam</button>
             <button class="nav-tab" data-tab="tca-mock">📋 TCA Mock</button>
+            <button class="nav-tab exam-nav" data-tab="ultimate-exam">🎓 Ultimate Exam</button>
         </nav>
 
         <!-- Content Sections -->
@@ -753,6 +754,254 @@ cout << *ptr;      // Dereference: get value at address
                 <div class="loading">Loading TCA Mock Exam content...</div>
             </section>
 
+            <!-- Ultimate Exam Section -->
+            <section id="ultimate-exam" class="content-section">
+                <div class="section-header">
+                    <h2>🎓 Ultimate C++ Exam System</h2>
+                    <p>Complete exam system with randomized questions from all sources</p>
+                </div>
+
+                <div class="exam-launch-panel">
+                    <div class="exam-hero">
+                        <div class="exam-hero-content">
+                            <h3>🚀 Ready for the Ultimate Test?</h3>
+                            <p>Take a comprehensive C++ exam with questions from all sources - Ultimate Questions, Mixed Challenges, Mock Exams, and TCA Mock. Create customized exams with full randomization and professional review system.</p>
+                            
+                            <div class="exam-features">
+                                <div class="feature-item">
+                                    <span class="feature-icon">🎲</span>
+                                    <span>Fully Randomized Questions</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">⚖️</span>
+                                    <span>Balanced from All Sources</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">⭐</span>
+                                    <span>All Difficulty Levels</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">📊</span>
+                                    <span>Detailed Results & Review</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">⏱️</span>
+                                    <span>Timed Exam Experience</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">💾</span>
+                                    <span>Auto-Save Progress</span>
+                                </div>
+                            </div>
+
+                            <div class="launch-buttons">
+                                <button class="btn btn-primary btn-large" onclick="window.open('exam.html', '_blank')">
+                                    🎓 Launch Ultimate Exam
+                                </button>
+                                <button class="btn btn-outline" onclick="showExamPreview()">
+                                    📋 Preview Features
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="exam-hero-visual">
+                            <div class="exam-stats-preview">
+                                <h4>📊 Available Questions</h4>
+                                <div class="stats-grid-mini">
+                                    <div class="stat-mini">
+                                        <span class="stat-number-mini">150+</span>
+                                        <span class="stat-label-mini">Total Questions</span>
+                                    </div>
+                                    <div class="stat-mini">
+                                        <span class="stat-number-mini">4</span>
+                                        <span class="stat-label-mini">Question Banks</span>
+                                    </div>
+                                    <div class="stat-mini">
+                                        <span class="stat-number-mini">6</span>
+                                        <span class="stat-label-mini">Exam Presets</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam-presets-grid">
+                    <h3>🎯 Quick Start Options</h3>
+                    <p>Choose from predefined exam configurations or create your own custom exam</p>
+                    
+                    <div class="presets-grid">
+                        <div class="preset-card quick">
+                            <div class="preset-header">
+                                <h4>⚡ Quick Quiz</h4>
+                                <span class="preset-badge easy">Easy Start</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>Perfect for quick revision and basic concept checking</p>
+                                <ul>
+                                    <li>10 questions</li>
+                                    <li>20 minutes</li>
+                                    <li>Easy to Medium difficulty</li>
+                                    <li>All question sources</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline btn-preset" data-preset="quick-mixed">
+                                Start Quick Quiz
+                            </button>
+                        </div>
+
+                        <div class="preset-card comprehensive">
+                            <div class="preset-header">
+                                <h4>📚 Comprehensive Exam</h4>
+                                <span class="preset-badge medium">Recommended</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>Thorough assessment covering all topics and difficulty levels</p>
+                                <ul>
+                                    <li>30 questions</li>
+                                    <li>75 minutes</li>
+                                    <li>All difficulty levels</li>
+                                    <li>Balanced sources</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary btn-preset" data-preset="comprehensive-mixed">
+                                Start Comprehensive Exam
+                            </button>
+                        </div>
+
+                        <div class="preset-card advanced">
+                            <div class="preset-header">
+                                <h4>🔥 Advanced Challenge</h4>
+                                <span class="preset-badge hard">Expert Level</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>Challenging exam focusing on advanced concepts and problem-solving</p>
+                                <ul>
+                                    <li>25 questions</li>
+                                    <li>60 minutes</li>
+                                    <li>Hard & Expert only</li>
+                                    <li>Prioritized difficulty</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline btn-preset" data-preset="advanced-mixed">
+                                Start Advanced Challenge
+                            </button>
+                        </div>
+
+                        <div class="preset-card mock">
+                            <div class="preset-header">
+                                <h4>🎯 University Mock</h4>
+                                <span class="preset-badge medium">University Style</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>University-style examination from Mock and TCA question banks</p>
+                                <ul>
+                                    <li>20 questions</li>
+                                    <li>50 minutes</li>
+                                    <li>Medium to Hard</li>
+                                    <li>Mock & TCA sources</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline btn-preset" data-preset="mock-focus">
+                                Start University Mock
+                            </button>
+                        </div>
+
+                        <div class="preset-card fundamentals">
+                            <div class="preset-header">
+                                <h4>🌟 Fundamentals Review</h4>
+                                <span class="preset-badge easy">Foundation</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>Focus on fundamental concepts and basic to intermediate topics</p>
+                                <ul>
+                                    <li>15 questions</li>
+                                    <li>35 minutes</li>
+                                    <li>Easy to Medium</li>
+                                    <li>Excludes advanced weeks</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline btn-preset" data-preset="fundamentals-mixed">
+                                Start Fundamentals Review
+                            </button>
+                        </div>
+
+                        <div class="preset-card custom">
+                            <div class="preset-header">
+                                <h4>🎲 Custom Configuration</h4>
+                                <span class="preset-badge custom">Fully Customizable</span>
+                            </div>
+                            <div class="preset-details">
+                                <p>Create your own exam with complete control over all parameters</p>
+                                <ul>
+                                    <li>5-40 questions</li>
+                                    <li>Custom duration</li>
+                                    <li>Choose difficulty</li>
+                                    <li>Select sources & types</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline btn-preset" data-preset="custom-randomized">
+                                Create Custom Exam
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam-info-section">
+                    <h3>📋 Exam System Features</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-icon">🎯</div>
+                            <h4>Question Types</h4>
+                            <ul>
+                                <li>Multiple Choice Questions (MCQ)</li>
+                                <li>Fill in the Blanks</li>
+                                <li>Code Writing Challenges</li>
+                                <li>Text-based Answers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">📚</div>
+                            <h4>Question Sources</h4>
+                            <ul>
+                                <li>Ultimate Questions (40 comprehensive)</li>
+                                <li>Mixed Challenges (All 9 weeks)</li>
+                                <li>Mock Exam (University format)</li>
+                                <li>TCA Mock (Professional style)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">⚙️</div>
+                            <h4>Advanced Features</h4>
+                            <ul>
+                                <li>Real-time timer with warnings</li>
+                                <li>Question navigation panel</li>
+                                <li>Mark for review functionality</li>
+                                <li>Auto-save progress</li>
+                                <li>Dark mode support</li>
+                                <li>Fullscreen exam mode</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">📊</div>
+                            <h4>Results & Review</h4>
+                            <ul>
+                                <li>Detailed performance analysis</li>
+                                <li>Question-by-question review</li>
+                                <li>Correct answers with explanations</li>
+                                <li>Time taken per question</li>
+                                <li>Difficulty-wise breakdown</li>
+                                <li>Export results option</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -771,6 +1020,8 @@ cout << *ptr;      // Dereference: get value at address
     <script src="js/mixed-questions.js"></script>
     <script src="js/mock-exam.js"></script>
     <script src="js/tca-mock.js"></script>
+    <script src="js/ultimate-exam-questions.js"></script>
+    <script src="js/mixed-exam-engine.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

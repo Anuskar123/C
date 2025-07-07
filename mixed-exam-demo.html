@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Exam Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .demo-section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .demo-title { color: #3498db; font-size: 1.5rem; margin-bottom: 15px; }
+        .btn { padding: 10px 15px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-outline { background: white; border: 2px solid #3498db; color: #3498db; }
+        pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #3498db; }
+    </style>
+</head>
+<body>
+    <h1>🎓 Mixed C++ Exam System Demo</h1>
+    
+    <div class="demo-section">
+        <h2 class="demo-title">📊 Question Bank Statistics</h2>
+        <div id="stats-display" class="stats"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">🎯 Available Exam Presets</h2>
+        <div id="presets-display"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">🎲 Quick Demo - Create Random Mixed Exam</h2>
+        <button class="btn btn-primary" onclick="createQuickDemo()">Create Quick Mixed Exam (10 questions)</button>
+        <button class="btn btn-outline" onclick="createComprehensiveDemo()">Create Comprehensive Exam (25 questions)</button>
+        <div id="demo-output"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">🔧 Custom Configuration Test</h2>
+        <form id="custom-form">
+            <div style="margin-bottom: 15px;">
+                <label>Question Count: </label>
+                <input type="number" id="demo-count" value="15" min="5" max="40">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Sources: </label>
+                <label><input type="checkbox" value="ultimate" checked> Ultimate</label>
+                <label><input type="checkbox" value="mixed" checked> Mixed</label>
+                <label><input type="checkbox" value="mock" checked> Mock</label>
+                <label><input type="checkbox" value="tca" checked> TCA</label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Difficulties: </label>
+                <label><input type="checkbox" value="easy" checked> Easy</label>
+                <label><input type="checkbox" value="medium" checked> Medium</label>
+                <label><input type="checkbox" value="hard"> Hard</label>
+                <label><input type="checkbox" value="expert"> Expert</label>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="createCustomDemo()">Create Custom Exam</button>
+        </form>
+        <div id="custom-output"></div>
+    </div>
+
+    <!-- Include all question files -->
+    <script src="js/mixed-questions.js"></script>
+    <script src="js/mock-exam.js"></script>
+    <script src="js/tca-mock.js"></script>
+    <script src="js/ultimate-exam-questions.js"></script>
+    <script src="js/mixed-exam-engine.js"></script>
+
+    <script>
+        // Display question bank statistics
+        function displayStats() {
+            const stats = mixedExamEngine.getQuestionStatistics();
+            const statsDisplay = document.getElementById('stats-display');
+            
+            statsDisplay.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalQuestions}</div>
+                    <div>Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.byDifficulty.easy}</div>
+                    <div>Easy Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.byDifficulty.medium}</div>
+                    <div>Medium Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.byDifficulty.hard}</div>
+                    <div>Hard Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.byDifficulty.expert}</div>
+                    <div>Expert Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${Object.keys(stats.bySource).length}</div>
+                    <div>Question Sources</div>
+                </div>
+            `;
+        }
+
+        // Display available presets
+        function displayPresets() {
+            const presets = mixedExamEngine.getExamPresets();
+            const presetsDisplay = document.getElementById('presets-display');
+            
+            presetsDisplay.innerHTML = Object.entries(presets).map(([key, preset]) => `
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+                    <h3>${preset.name}</h3>
+                    <p>${preset.description}</p>
+                    <div style="font-size: 0.9rem; color: #666;">
+                        Questions: ${preset.questionCount} | 
+                        Sources: ${preset.sources.join(', ')} | 
+                        Difficulties: ${preset.difficulties.join(', ')}
+                    </div>
+                    <button class="btn btn-outline" onclick="createPresetDemo('${key}')">Test This Preset</button>
+                </div>
+            `).join('');
+        }
+
+        // Create quick demo
+        function createQuickDemo() {
+            const exam = mixedExamEngine.createExamFromPreset('quick-mixed');
+            displayExamResults('demo-output', exam);
+        }
+
+        // Create comprehensive demo
+        function createComprehensiveDemo() {
+            const exam = mixedExamEngine.createExamFromPreset('comprehensive-mixed');
+            displayExamResults('demo-output', exam);
+        }
+
+        // Create preset demo
+        function createPresetDemo(presetKey) {
+            const exam = mixedExamEngine.createExamFromPreset(presetKey);
+            displayExamResults('demo-output', exam);
+        }
+
+        // Create custom demo
+        function createCustomDemo() {
+            const form = document.getElementById('custom-form');
+            const formData = new FormData(form);
+            
+            const config = {
+                questionCount: parseInt(document.getElementById('demo-count').value),
+                sources: Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
+                    .map(cb => cb.value).filter(v => ['ultimate', 'mixed', 'mock', 'tca'].includes(v)),
+                difficulties: Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
+                    .map(cb => cb.value).filter(v => ['easy', 'medium', 'hard', 'expert'].includes(v)),
+                randomize: true,
+                balanceBySource: true
+            };
+
+            const exam = mixedExamEngine.createMixedExam(config);
+            displayExamResults('custom-output', exam);
+        }
+
+        // Display exam results
+        function displayExamResults(outputId, exam) {
+            const summary = mixedExamEngine.generateExamSummary(exam);
+            const output = document.getElementById(outputId);
+            
+            output.innerHTML = `
+                <h3>✅ Exam Created Successfully!</h3>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">${summary.totalQuestions}</div>
+                        <div>Questions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${summary.totalMarks}</div>
+                        <div>Total Marks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${summary.estimatedTime}</div>
+                        <div>Est. Minutes</div>
+                    </div>
+                </div>
+                
+                <h4>📊 Breakdown by Source:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                    ${Object.entries(summary.bySource).map(([source, count]) => `
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; text-align: center;">
+                            <strong>${source}</strong><br>${count} questions
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <h4>⭐ Breakdown by Difficulty:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                    ${Object.entries(summary.byDifficulty).filter(([diff, count]) => count > 0).map(([diff, count]) => `
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; text-align: center;">
+                            <strong>${diff}</strong><br>${count} questions
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <details style="margin-top: 15px;">
+                    <summary style="cursor: pointer; font-weight: bold;">📝 View First 3 Questions</summary>
+                    <pre>${JSON.stringify(exam.slice(0, 3).map(q => ({
+                        id: q.id,
+                        type: q.type,
+                        difficulty: q.difficulty,
+                        source: q.sourceType,
+                        topic: q.topic,
+                        question: q.question.substring(0, 100) + '...'
+                    })), null, 2)}</pre>
+                </details>
+            `;
+        }
+
+        // Initialize demo
+        window.addEventListener('DOMContentLoaded', () => {
+            displayStats();
+            displayPresets();
+        });
+    </script>
+</body>
+</html>

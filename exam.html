@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Ultimate Mock Exam System</title>
+    <link rel="stylesheet" href="css/exam-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="exam-container">
+        <!-- Exam Header -->
+        <header class="exam-header">
+            <div class="exam-info">
+                <h1 id="exam-title">📝 C++ Programming Ultimate Mock Exam</h1>
+                <div class="exam-meta">
+                    <div class="meta-item">
+                        <span class="label">Time Remaining:</span>
+                        <span id="time-display" class="timer">⏰ 90:00</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Total Marks:</span>
+                        <span class="marks">100</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Questions:</span>
+                        <span id="total-questions">20</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Passing Grade:</span>
+                        <span class="passing">50%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-controls">
+                <button id="start-exam" class="btn btn-primary">🚀 Start Exam</button>
+                <button id="submit-exam" class="btn btn-success" style="display:none;">📤 Submit Exam</button>
+                <button id="pause-exam" class="btn btn-warning" style="display:none;">⏸️ Pause</button>
+            </div>
+        </header>
+
+        <!-- Question Navigation Panel -->
+        <div id="nav-panel" class="navigation-panel" style="display:none;">
+            <div class="nav-header">
+                <h3>📋 Question Navigator</h3>
+                <button id="toggle-nav" class="btn-toggle">←</button>
+            </div>
+            <div id="question-grid" class="question-grid"></div>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="status answered"></span>
+                    <span>Answered</span>
+                </div>
+                <div class="legend-item">
+                    <span class="status current"></span>
+                    <span>Current</span>
+                </div>
+                <div class="legend-item">
+                    <span class="status unanswered"></span>
+                    <span>Not Answered</span>
+                </div>
+                <div class="legend-item">
+                    <span class="status marked"></span>
+                    <span>Marked for Review</span>
+                </div>
+            </div>
+            <div class="nav-summary">
+                <div class="summary-item">
+                    <span>Answered: </span>
+                    <span id="answered-count">0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Not Answered: </span>
+                    <span id="unanswered-count">20</span>
+                </div>
+                <div class="summary-item">
+                    <span>Marked: </span>
+                    <span id="marked-count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Instructions -->
+        <div id="exam-instructions" class="instructions-panel">
+            <div class="instructions-content">
+                <h2>📋 Exam Instructions</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-section">
+                        <h3>⏰ Time Management</h3>
+                        <ul>
+                            <li>Total time: <strong>90 minutes</strong></li>
+                            <li>Timer will be displayed throughout the exam</li>
+                            <li>Auto-submit when time expires</li>
+                            <li>You can pause the exam once for 5 minutes</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-section">
+                        <h3>📝 Question Types</h3>
+                        <ul>
+                            <li><strong>Multiple Choice:</strong> Select one correct answer</li>
+                            <li><strong>Fill in the Blank:</strong> Type exact answers</li>
+                            <li><strong>Code Completion:</strong> Write complete code</li>
+                            <li><strong>Short Answer:</strong> Brief explanations</li>
+                            <li><strong>Programming:</strong> Write full programs</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-section">
+                        <h3>✏️ Answering Questions</h3>
+                        <ul>
+                            <li>Navigate using the question panel or Next/Previous buttons</li>
+                            <li>Mark questions for review using the star button</li>
+                            <li>All answers are auto-saved</li>
+                            <li>You can change answers anytime before submission</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-section">
+                        <h3>⚠️ Important Notes</h3>
+                        <ul>
+                            <li>Ensure stable internet connection</li>
+                            <li>Do not refresh or close the browser</li>
+                            <li>Code questions are case-sensitive</li>
+                            <li>Spelling and syntax matter for programming questions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="instructions-footer">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agree-instructions">
+                        <span class="checkmark"></span>
+                        I have read and understood all the instructions
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Content -->
+        <main id="exam-content" style="display:none;">
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-info">
+                        <span id="question-number" class="question-num">Question 1 of 20</span>
+                        <span id="question-marks" class="marks-display">Marks: 5</span>
+                        <span id="question-difficulty" class="difficulty">⭐⭐ Medium</span>
+                        <span id="question-topic" class="topic">Structs & Pointers</span>
+                    </div>
+                    <div class="question-actions">
+                        <button id="mark-review" class="btn btn-outline">⭐ Mark for Review</button>
+                        <button id="clear-answer" class="btn btn-outline">🗑️ Clear Answer</button>
+                    </div>
+                </div>
+
+                <div class="question-content">
+                    <div id="question-text" class="question-text"></div>
+                    <div id="question-code" class="code-block" style="display:none;"></div>
+                    <div id="answer-section" class="answer-section"></div>
+                </div>
+
+                <div class="question-navigation">
+                    <button id="prev-question" class="btn btn-secondary" onclick="console.log('Prev button HTML click'); if(window.examEngine) window.examEngine.previousQuestion();">← Previous</button>
+                    <div class="nav-info">
+                        <span id="progress-text">1 of 20 questions</span>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <button id="next-question" class="btn btn-secondary" onclick="console.log('Next button HTML click'); if(window.examEngine) window.examEngine.nextQuestion();">Next →</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Results Panel -->
+        <div id="results-panel" style="display:none;">
+            <div class="results-content">
+                <h2>📊 Exam Results</h2>
+                <div class="results-summary">
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="final-score">0</span>
+                            <span class="score-total">/100</span>
+                        </div>
+                        <div class="grade-info">
+                            <span id="grade-letter" class="grade">F</span>
+                            <span id="grade-status" class="status">Failed</span>
+                        </div>
+                    </div>
+                    <div class="results-details">
+                        <div class="detail-item">
+                            <span>Time Taken:</span>
+                            <span id="time-taken">--:--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Correct Answers:</span>
+                            <span id="correct-answers">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Wrong Answers:</span>
+                            <span id="wrong-answers">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Unanswered:</span>
+                            <span id="unanswered-final">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button id="review-answers" class="btn btn-primary">📝 Review Answers</button>
+                    <button id="retake-exam" class="btn btn-outline">🔄 Retake Exam</button>
+                    <button id="export-results" class="btn btn-outline">📄 Export Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Loading exam...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/mixed-questions.js"></script>
+    <script src="js/mock-exam.js"></script>
+    <script src="js/tca-mock.js"></script>
+    <script src="js/ultimate-exam-questions.js"></script>
+    <script src="js/mixed-exam-engine.js"></script>
+    <script src="js/exam-engine.js"></script>
+    <script src="js/exam-ui.js"></script>
+    <script src="js/exam-timer.js"></script>
+    <script src="js/exam-storage.js"></script>
+</body>
+</html>
