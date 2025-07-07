@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Comprehensive Examination - 135+ Questions</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        header h1::before {
+            content: "💻";
+            margin-right: 15px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .loading-stat {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .loading-stat .number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .loading-stat .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Screen Styles */
+        .screen {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .screen.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Welcome Screen */
+        .welcome-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-selector {
+            margin: 30px 0;
+        }
+
+        .question-selector label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .question-selector select {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: white;
+            color: #333;
+        }
+
+        .exam-info {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .exam-info h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .exam-info ul {
+            color: #856404;
+            margin-left: 20px;
+        }
+
+        /* Question Screen */
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .question-progress {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .timer {
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .timer.warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .timer.critical {
+            background: #dc3545;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4ECDC4;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            background: #e9ecef;
+            color: #495057;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .meta-badge.source {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Consolas, monospace;
+        }
+
+        .options {
+            margin: 25px 0;
+        }
+
+        .option {
+            background: rgba(102, 126, 234, 0.05);
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .option.selected {
+            border-color: #4ECDC4;
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .option.correct {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .btn-large {
+            padding: 20px 40px;
+            font-size: 1.2rem;
+        }
+
+        /* Results Screen */
+        .results-summary {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #28a745; }
+        .score-good { color: #17a2b8; }
+        .score-average { color: #ffc107; }
+        .score-poor { color: #dc3545; }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-stat .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-stat .label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e1e8ed;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 1.5rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .loading-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Review Screen Styles */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin: 30px 0;
+            max-width: 800px;
+        }
+
+        .review-item {
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .review-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item.correct {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .review-item.incorrect {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .review-item.unanswered {
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .review-number {
+            display: block;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .review-status {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .review-item.correct .review-status {
+            color: #28a745;
+        }
+
+        .review-item.incorrect .review-status {
+            color: #dc3545;
+        }
+
+        .review-item.unanswered .review-status {
+            color: #ffc107;
+        }
+
+        /* Detailed Results Styles */
+        .detailed-grid {
+            display: grid;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-detail {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #e1e8ed;
+            transition: transform 0.3s ease;
+        }
+
+        .result-detail:hover {
+            transform: translateX(5px);
+        }
+
+        .result-detail.correct {
+            border-left-color: #28a745;
+            background: rgba(40, 167, 69, 0.02);
+        }
+
+        .result-detail.incorrect {
+            border-left-color: #dc3545;
+            background: rgba(220, 53, 69, 0.02);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .result-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .result-source {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .result-status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .result-detail.correct .result-status {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .result-detail.incorrect .result-status {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .result-question {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .result-answer {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .result-answer strong {
+            color: #667eea;
+        }
+
+        .result-correct {
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-left: 3px solid #28a745;
+        }
+
+        .result-correct strong {
+            color: #28a745;
+        }
+
+        .result-explanation {
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #ffc107;
+            font-style: italic;
+            color: #856404;
+        }
+
+        .result-explanation::before {
+            content: "💡 ";
+            font-style: normal;
+        }
+
+        /* Summary Stats */
+        .results-summary {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .performance-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .performance-excellent {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .performance-good {
+            background: linear-gradient(135deg, #17a2b8, #20c997);
+            color: white;
+        }
+
+        .performance-average {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: #000;
+        }
+
+        .performance-poor {
+            background: linear-gradient(135deg, #dc3545, #e83e8c);
+            color: white;
+        }
+
+        /* Source Analysis */
+        .source-analysis {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .source-analysis h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .source-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .source-stat {
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .source-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .source-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .source-score.excellent { color: #28a745; }
+        .source-score.good { color: #17a2b8; }
+        .source-score.average { color: #ffc107; }
+        .source-score.poor { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>C++ Comprehensive Examination</h1>
+            <p class="subtitle">Complete Assessment - All Weeks + Mock Exams</p>
+            <div class="loading-stats">
+                <div class="loading-stat">
+                    <span class="number" id="total-questions">Loading...</span>
+                    <span class="label">Total Questions</span>
+                </div>
+                <div class="loading-stat">
+                    <span class="number">90</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="loading-stat">
+                    <span class="number" id="source-count">Loading...</span>
+                    <span class="label">Sources</span>
+                </div>
+                <div class="loading-stat">
+                    <span class="number">5</span>
+                    <span class="label">Question Types</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <h2>Loading Question Bank...</h2>
+                <p>Gathering questions from all weeks and mock exams...</p>
+                <div id="loading-progress"></div>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="welcome-content">
+                <h2>🎯 Ready to Begin Your Comprehensive Exam?</h2>
+                <p>This exam draws from all available sources including Week 1-9, Mock Exam, and TCA Mock exam questions.</p>
+                
+                <div class="question-selector">
+                    <label for="question-count">Select Number of Questions:</label>
+                    <select id="question-count">
+                        <option value="10">10 Questions (Quick Test)</option>
+                        <option value="20" selected>20 Questions (Standard)</option>
+                        <option value="30">30 Questions (Extended)</option>
+                        <option value="50">50 Questions (Comprehensive)</option>
+                        <option value="100">100 Questions (Full Assessment)</option>
+                        <option value="all">All Available Questions</option>
+                    </select>
+                </div>
+
+                <div class="exam-info">
+                    <h3>📋 Exam Information</h3>
+                    <ul>
+                        <li><strong>Time Limit:</strong> 90 minutes (adjusts based on question count)</li>
+                        <li><strong>Question Types:</strong> Multiple Choice, Code Analysis, Debugging</li>
+                        <li><strong>Sources:</strong> All 9 weeks + Mock exams</li>
+                        <li><strong>Scoring:</strong> Detailed feedback with explanations</li>
+                        <li><strong>Format:</strong> Randomized question selection</li>
+                    </ul>
+                </div>
+
+                <button class="btn btn-primary btn-large" onclick="exam.startExam()">
+                    🚀 Start Comprehensive Exam
+                </button>
+            </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="question-header">
+                <div class="question-progress" id="question-progress">
+                    Question 1 of 20
+                </div>
+                <div class="timer" id="timer">
+                    ⏰ Time: <span id="time-remaining">90:00</span>
+                </div>
+            </div>
+
+            <div id="question-container">
+                <!-- Questions will be loaded here -->
+            </div>
+
+            <div class="navigation">
+                <button class="btn btn-secondary" onclick="exam.previousQuestion()" id="prev-btn" disabled>
+                    ← Previous
+                </button>
+                <button class="btn btn-warning" onclick="exam.showReviewScreen()">
+                    📝 Review Answers
+                </button>
+                <button class="btn btn-primary" onclick="exam.nextQuestion()" id="next-btn">
+                    Next →
+                </button>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="screen">
+            <h2>📝 Review Your Answers</h2>
+            <div id="review-container">
+                <!-- Review content will be loaded here -->
+            </div>
+            <div class="navigation">
+                <button class="btn btn-secondary" onclick="exam.showQuestionScreen()">
+                    ← Back to Questions
+                </button>
+                <button class="btn btn-warning" onclick="exam.submitExam()">
+                    📤 Submit Exam
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-summary">
+                <h2>🏆 Examination Results</h2>
+                <div class="score-display" id="final-score">85%</div>
+                <div id="score-message">Excellent Performance!</div>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-stat">
+                    <div class="number" id="correct-count">17</div>
+                    <div class="label">Correct Answers</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number" id="total-answered">20</div>
+                    <div class="label">Total Questions</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number" id="time-taken">45:30</div>
+                    <div class="label">Time Taken</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number" id="accuracy-rate">85%</div>
+                    <div class="label">Accuracy Rate</div>
+                </div>
+            </div>
+
+            <div id="detailed-results">
+                <!-- Detailed results will be loaded here -->
+            </div>
+
+            <div class="navigation">
+                <button class="btn btn-secondary" onclick="exam.showWelcomeScreen()">
+                    🔄 Take Another Exam
+                </button>
+                <button class="btn btn-success" onclick="exam.downloadResults()">
+                    💾 Download Results
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for confirmations -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Confirm Action</h3>
+            <p id="modal-message">Are you sure?</p>
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-secondary" onclick="exam.hideModal()">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm" onclick="exam.confirmAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Question Loading Scripts -->
+    <script src="js/week1-questions.js"></script>
+    <script src="js/week2-questions.js"></script>
+    <script src="js/week3-questions.js"></script>
+    <script src="js/week4-questions.js"></script>
+    <script src="js/week5-questions.js"></script>
+    <script src="js/week6-questions.js"></script>
+    <script src="js/week7-questions.js"></script>
+    <script src="js/week8-questions.js"></script>
+    <script src="js/week9-questions.js"></script>
+    <script src="js/mock-exam.js"></script>
+    <script src="js/tca-mock.js"></script>
+
+    <script>
+        // Comprehensive Exam Application
+        class CppComprehensiveExam {
+            constructor() {
+                this.allQuestions = [];
+                this.selectedQuestions = [];
+                this.currentQuestionIndex = 0;
+                this.userAnswers = {};
+                this.startTime = null;
+                this.timeLimit = 90 * 60; // 90 minutes in seconds
+                this.timer = null;
+                this.isSubmitted = false;
+                this.loadingComplete = false;
+            }
+
+            async init() {
+                console.log('🚀 Initializing Comprehensive Exam...');
+                
+                // Wait for all scripts to load
+                await this.waitForScripts();
+                
+                // Load all questions from external sources
+                await this.loadAllQuestions();
+                
+                // Update UI with loaded question count
+                this.updateLoadingStats();
+                
+                // Show welcome screen
+                this.showWelcomeScreen();
+                
+                // Bind events
+                this.bindEvents();
+                
+                this.loadingComplete = true;
+                console.log('✅ Comprehensive Exam ready!');
+            }
+
+            async waitForScripts() {
+                // Wait for all question data to be available
+                let attempts = 0;
+                const maxAttempts = 50; // 5 seconds max
+                
+                while (attempts < maxAttempts) {
+                    const sourcesLoaded = this.checkSourcesLoaded();
+                    if (sourcesLoaded >= 8) { // At least 8 sources should be loaded
+                        console.log(`✅ ${sourcesLoaded} question sources loaded`);
+                        break;
+                    }
+                    
+                    console.log(`⏳ Waiting for scripts... (${sourcesLoaded} sources loaded)`);
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+            }
+
+            checkSourcesLoaded() {
+                let loaded = 0;
+                const sources = [
+                    'week1Data', 'week2Data', 'week3Data', 'week4Data', 'week5Data',
+                    'week6Data', 'week7Data', 'week8Data', 'week9Data', 'mockExamData', 'tcaMockData'
+                ];
+                
+                sources.forEach(source => {
+                    if (window[source] && window[source].questions) {
+                        loaded++;
+                    }
+                });
+                
+                return loaded;
+            }
+
+            async loadAllQuestions() {
+                console.log('📚 Loading questions from all sources...');
+                
+                const sources = {
+                    'Week 1': window.week1Data,
+                    'Week 2': window.week2Data,
+                    'Week 3': window.week3Data,
+                    'Week 4': window.week4Data,
+                    'Week 5': window.week5Data,
+                    'Week 6': window.week6Data,
+                    'Week 7': window.week7Data,
+                    'Week 8': window.week8Data,
+                    'Week 9': window.week9Data,
+                    'Mock Exam': window.mockExamData,
+                    'TCA Mock': window.tcaMockData
+                };
+
+                let totalLoaded = 0;
+                const failedSources = [];
+
+                for (const [sourceName, sourceData] of Object.entries(sources)) {
+                    try {
+                        if (sourceData && sourceData.questions && Array.isArray(sourceData.questions)) {
+                            sourceData.questions.forEach((question, index) => {
+                                // Validate question structure
+                                if (!question.question) {
+                                    console.warn(`Question ${index} in ${sourceName} has no question text`);
+                                    return;
+                                }
+                                
+                                this.allQuestions.push({
+                                    ...question,
+                                    source: sourceName,
+                                    originalId: question.id,
+                                    id: `${sourceName.toLowerCase().replace(/\s+/g, '_')}_${question.id || index}`,
+                                    // Ensure required fields exist
+                                    type: question.type || 'Multiple Choice',
+                                    difficulty: question.difficulty || 'Medium',
+                                    explanation: question.explanation || 'No explanation available.'
+                                });
+                            });
+                            totalLoaded += sourceData.questions.length;
+                            console.log(`📝 Added ${sourceData.questions.length} questions from ${sourceName}`);
+                        } else {
+                            console.warn(`⚠️ No questions found in ${sourceName}`);
+                            failedSources.push(sourceName);
+                        }
+                    } catch (error) {
+                        console.error(`❌ Error loading questions from ${sourceName}:`, error);
+                        failedSources.push(sourceName);
+                    }
+                }
+
+                // Show warning if some sources failed
+                if (failedSources.length > 0) {
+                    console.warn(`⚠️ Failed to load questions from: ${failedSources.join(', ')}`);
+                }
+
+                // Ensure we have at least some questions
+                if (totalLoaded === 0) {
+                    throw new Error('No questions could be loaded from any source. Please refresh the page and try again.');
+                }
+
+                if (totalLoaded < 50) {
+                    console.warn(`⚠️ Only ${totalLoaded} questions loaded. Some sources may not be available.`);
+                }
+
+                console.log(`🎯 Total questions loaded: ${totalLoaded}`);
+                return totalLoaded;
+            }
+
+            updateLoadingStats() {
+                document.getElementById('total-questions').textContent = this.allQuestions.length;
+                document.getElementById('source-count').textContent = new Set(this.allQuestions.map(q => q.source)).size;
+                
+                // Update loading progress
+                const progress = document.getElementById('loading-progress');
+                progress.innerHTML = `
+                    <p>✅ Loaded ${this.allQuestions.length} questions from ${new Set(this.allQuestions.map(q => q.source)).size} sources</p>
+                    <p>Sources: ${Array.from(new Set(this.allQuestions.map(q => q.source))).join(', ')}</p>
+                `;
+            }
+
+            bindEvents() {
+                // Prevent accidental page refresh during exam
+                window.addEventListener('beforeunload', (event) => {
+                    if (this.startTime && !this.isSubmitted) {
+                        event.preventDefault();
+                        event.returnValue = 'Your exam progress will be lost. Are you sure you want to leave?';
+                        return event.returnValue;
+                    }
+                });
+            }
+
+            showWelcomeScreen() {
+                this.hideAllScreens();
+                document.getElementById('welcome-screen').classList.add('active');
+            }
+
+            showQuestionScreen() {
+                this.hideAllScreens();
+                document.getElementById('question-screen').classList.add('active');
+                this.displayCurrentQuestion();
+            }
+
+            showReviewScreen() {
+                this.hideAllScreens();
+                document.getElementById('review-screen').classList.add('active');
+                this.displayReview();
+            }
+
+            showResultsScreen() {
+                this.hideAllScreens();
+                document.getElementById('results-screen').classList.add('active');
+                this.displayResults();
+            }
+
+            hideAllScreens() {
+                const screens = document.querySelectorAll('.screen');
+                screens.forEach(screen => screen.classList.remove('active'));
+            }
+
+            startExam() {
+                if (!this.loadingComplete) {
+                    alert('⏳ Please wait for all questions to load before starting the exam.');
+                    return;
+                }
+
+                const questionCount = document.getElementById('question-count').value;
+                
+                // Randomly select questions
+                if (questionCount === 'all') {
+                    this.selectedQuestions = [...this.allQuestions];
+                } else {
+                    this.selectedQuestions = this.getRandomQuestions(parseInt(questionCount));
+                }
+                
+                // Adjust time limit based on question count
+                this.timeLimit = Math.max(30, this.selectedQuestions.length * 2) * 60; // 2 minutes per question, minimum 30 minutes
+                
+                this.currentQuestionIndex = 0;
+                this.userAnswers = {};
+                this.startTime = new Date();
+                this.isSubmitted = false;
+                
+                // Start timer
+                this.startTimer();
+                
+                // Show first question
+                this.showQuestionScreen();
+            }
+
+            getRandomQuestions(count) {
+                const shuffled = [...this.allQuestions].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, count);
+            }
+
+            startTimer() {
+                document.getElementById('timer').style.display = 'block';
+                
+                this.timer = setInterval(() => {
+                    const elapsed = Math.floor((new Date() - this.startTime) / 1000);
+                    const remaining = this.timeLimit - elapsed;
+                    
+                    if (remaining <= 0) {
+                        this.timeUp();
+                        return;
+                    }
+                    
+                    this.updateTimerDisplay(remaining);
+                }, 1000);
+            }
+
+            updateTimerDisplay(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                const timeString = `${minutes}:${secs.toString().padStart(2, '0')}`;
+                
+                document.getElementById('time-remaining').textContent = timeString;
+                
+                const timerElement = document.getElementById('timer');
+                if (seconds <= 300) { // 5 minutes
+                    timerElement.className = 'timer critical';
+                } else if (seconds <= 600) { // 10 minutes
+                    timerElement.className = 'timer warning';
+                } else {
+                    timerElement.className = 'timer';
+                }
+            }
+
+            timeUp() {
+                clearInterval(this.timer);
+                this.showModal('⏰ Time Up!', 'Your exam time has expired. The exam will be submitted automatically.', () => {
+                    this.submitExam();
+                });
+            }
+
+            displayCurrentQuestion() {
+                const question = this.selectedQuestions[this.currentQuestionIndex];
+                const container = document.getElementById('question-container');
+                
+                container.innerHTML = `
+                    <div class="question-card">
+                        <div class="question-meta">
+                            <span class="meta-badge source">${question.source}</span>
+                            <span class="meta-badge">${question.type || 'Multiple Choice'}</span>
+                            <span class="meta-badge">${question.difficulty || 'Medium'}</span>
+                            ${question.topic ? `<span class="meta-badge">${question.topic}</span>` : ''}
+                        </div>
+                        
+                        <div class="question-text">${question.question}</div>
+                        
+                        ${question.code ? `
+                            <div class="code-block"><pre><code>${this.escapeHtml(question.code)}</code></pre></div>
+                        ` : ''}
+                        
+                        ${question.options ? this.createOptionsHTML(question) : ''}
+                    </div>
+                `;
+                
+                // Update progress
+                document.getElementById('question-progress').textContent = 
+                    `Question ${this.currentQuestionIndex + 1} of ${this.selectedQuestions.length}`;
+                
+                // Update navigation buttons
+                document.getElementById('prev-btn').disabled = this.currentQuestionIndex === 0;
+                document.getElementById('next-btn').textContent = 
+                    this.currentQuestionIndex === this.selectedQuestions.length - 1 ? 'Finish' : 'Next →';
+            }
+
+            createOptionsHTML(question) {
+                if (!question.options) return '';
+                
+                let html = '<div class="options">';
+                question.options.forEach((option, index) => {
+                    const isSelected = this.userAnswers[question.id] === index;
+                    html += `
+                        <div class="option ${isSelected ? 'selected' : ''}" onclick="exam.selectAnswer(${index})">
+                            <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                            <span class="option-text">${option}</span>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                return html;
+            }
+
+            selectAnswer(answerIndex) {
+                const question = this.selectedQuestions[this.currentQuestionIndex];
+                this.userAnswers[question.id] = answerIndex;
+                
+                // Update UI
+                const options = document.querySelectorAll('.option');
+                options.forEach((option, index) => {
+                    option.classList.toggle('selected', index === answerIndex);
+                });
+            }
+
+            nextQuestion() {
+                if (this.currentQuestionIndex < this.selectedQuestions.length - 1) {
+                    this.currentQuestionIndex++;
+                    this.displayCurrentQuestion();
+                } else {
+                    this.showReviewScreen();
+                }
+            }
+
+            previousQuestion() {
+                if (this.currentQuestionIndex > 0) {
+                    this.currentQuestionIndex--;
+                    this.displayCurrentQuestion();
+                }
+            }
+
+            displayReview() {
+                const container = document.getElementById('review-container');
+                let html = '<div class="review-grid">';
+                
+                this.selectedQuestions.forEach((question, index) => {
+                    const answered = this.userAnswers[question.id] !== undefined;
+                    const isCorrect = answered && this.userAnswers[question.id] === question.correct;
+                    
+                    html += `
+                        <div class="review-item ${answered ? (isCorrect ? 'correct' : 'incorrect') : 'unanswered'}" 
+                             onclick="exam.goToQuestion(${index})">
+                            <span class="review-number">${index + 1}</span>
+                            <span class="review-status">${answered ? (isCorrect ? '✓' : '✗') : '?'}</span>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            goToQuestion(index) {
+                this.currentQuestionIndex = index;
+                this.showQuestionScreen();
+            }
+
+            submitExam() {
+                // Check if any questions were answered
+                const answeredCount = Object.keys(this.userAnswers).length;
+                const totalQuestions = this.selectedQuestions.length;
+                
+                if (answeredCount === 0) {
+                    this.showModal(
+                        '⚠️ No Answers Provided',
+                        'You haven\'t answered any questions yet. Are you sure you want to submit a blank exam?',
+                        () => this.finalizeSubmission()
+                    );
+                    return;
+                }
+                
+                if (answeredCount < totalQuestions / 2) {
+                    this.showModal(
+                        '⚠️ Many Questions Unanswered',
+                        `You've only answered ${answeredCount} out of ${totalQuestions} questions. This may significantly impact your score. Do you want to continue?`,
+                        () => this.finalizeSubmission()
+                    );
+                    return;
+                }
+                
+                // Standard submission confirmation
+                this.showModal(
+                    '📤 Submit Exam?', 
+                    `Are you sure you want to submit your exam? You've answered ${answeredCount} out of ${totalQuestions} questions. This action cannot be undone.`,
+                    () => this.finalizeSubmission()
+                );
+            }
+
+            finalizeSubmission() {
+                try {
+                    this.isSubmitted = true;
+                    clearInterval(this.timer);
+                    
+                    // Validate question data before calculating results
+                    if (!this.selectedQuestions || this.selectedQuestions.length === 0) {
+                        throw new Error('No questions were loaded for the exam.');
+                    }
+                    
+                    this.calculateResults();
+                    
+                    // Validate results
+                    if (!this.results || this.results.total === 0) {
+                        throw new Error('Unable to calculate exam results.');
+                    }
+                    
+                    this.showResultsScreen();
+                    
+                } catch (error) {
+                    console.error('Error during exam submission:', error);
+                    this.showModal(
+                        '❌ Submission Error',
+                        `There was an error processing your exam: ${error.message}. Please try again or contact support.`,
+                        () => this.showQuestionScreen()
+                    );
+                }
+            }
+
+            calculateResults() {
+                let correct = 0;
+                let total = this.selectedQuestions.length;
+                
+                this.selectedQuestions.forEach(question => {
+                    if (this.userAnswers[question.id] === question.correct) {
+                        correct++;
+                    }
+                });
+                
+                const percentage = Math.round((correct / total) * 100);
+                const timeTaken = this.startTime ? Math.floor((new Date() - this.startTime) / 1000) : 0;
+                
+                this.results = {
+                    correct,
+                    total,
+                    percentage,
+                    timeTaken,
+                    grade: this.calculateGrade(percentage)
+                };
+            }
+
+            calculateGrade(percentage) {
+                if (percentage >= 90) return { text: 'Excellent', class: 'score-excellent' };
+                if (percentage >= 80) return { text: 'Good', class: 'score-good' };
+                if (percentage >= 70) return { text: 'Average', class: 'score-average' };
+                return { text: 'Needs Improvement', class: 'score-poor' };
+            }
+
+            displayResults() {
+                const { correct, total, percentage, timeTaken, grade } = this.results;
+                
+                // Update score display
+                document.getElementById('final-score').textContent = `${percentage}%`;
+                document.getElementById('final-score').className = `score-display ${grade.class}`;
+                
+                // Update score message with performance badge
+                const scoreMessage = document.getElementById('score-message');
+                scoreMessage.innerHTML = `
+                    <div class="performance-badge performance-${grade.class.replace('score-', '')}">
+                        ${grade.text}
+                    </div>
+                    <p style="margin-top: 15px; color: #666; font-size: 1.1rem;">
+                        ${this.getPerformanceMessage(percentage)}
+                    </p>
+                `;
+                
+                // Update statistics
+                document.getElementById('correct-count').textContent = correct;
+                document.getElementById('total-answered').textContent = total;
+                document.getElementById('time-taken').textContent = this.formatTime(timeTaken);
+                document.getElementById('accuracy-rate').textContent = `${percentage}%`;
+                
+                // Calculate additional stats
+                const unanswered = total - Object.keys(this.userAnswers).length;
+                const avgTimePerQuestion = Math.round(timeTaken / total);
+                
+                // Add additional statistics to results grid
+                const resultsGrid = document.querySelector('.results-grid');
+                if (resultsGrid.children.length === 4) { // Only add if not already added
+                    resultsGrid.innerHTML += `
+                        <div class="result-stat">
+                            <div class="number">${unanswered}</div>
+                            <div class="label">Unanswered</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="number">${avgTimePerQuestion}s</div>
+                            <div class="label">Avg per Question</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="number">${new Set(this.selectedQuestions.map(q => q.source)).size}</div>
+                            <div class="label">Sources Tested</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="number">${this.getGradePoint(percentage)}</div>
+                            <div class="label">Grade Points</div>
+                        </div>
+                    `;
+                }
+                
+                // Show detailed results
+                this.displayDetailedResults();
+            }
+
+            getPerformanceMessage(percentage) {
+                if (percentage >= 95) return "Outstanding performance! You have mastered C++ programming concepts.";
+                if (percentage >= 90) return "Excellent work! You have a strong understanding of C++ programming.";
+                if (percentage >= 85) return "Very good! You're well on your way to C++ mastery.";
+                if (percentage >= 80) return "Good job! You have a solid foundation in C++ programming.";
+                if (percentage >= 75) return "Not bad! Keep practicing to improve your C++ skills.";
+                if (percentage >= 70) return "You're getting there! Review the concepts and try again.";
+                if (percentage >= 60) return "Keep studying! Focus on the areas where you made mistakes.";
+                return "Don't give up! Review the fundamentals and practice more.";
+            }
+
+            getGradePoint(percentage) {
+                if (percentage >= 97) return "4.0";
+                if (percentage >= 93) return "3.7";
+                if (percentage >= 90) return "3.3";
+                if (percentage >= 87) return "3.0";
+                if (percentage >= 83) return "2.7";
+                if (percentage >= 80) return "2.3";
+                if (percentage >= 77) return "2.0";
+                if (percentage >= 73) return "1.7";
+                if (percentage >= 70) return "1.3";
+                if (percentage >= 67) return "1.0";
+                if (percentage >= 60) return "0.7";
+                return "0.0";
+            }
+
+            displayDetailedResults() {
+                const container = document.getElementById('detailed-results');
+                
+                // Calculate source-wise performance
+                const sourceStats = this.calculateSourceStats();
+                
+                let html = `
+                    <div class="source-analysis">
+                        <h3>📊 Performance by Source</h3>
+                        <div class="source-stats">
+                            ${sourceStats.map(stat => `
+                                <div class="source-stat">
+                                    <div class="source-name">${stat.source}</div>
+                                    <div class="source-score ${this.getScoreClass(stat.percentage)}">${stat.percentage}%</div>
+                                    <div class="source-details">${stat.correct}/${stat.total} correct</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <h3>📋 Question-by-Question Analysis</h3>
+                    <div class="detailed-grid">
+                `;
+                
+                this.selectedQuestions.forEach((question, index) => {
+                    const userAnswer = this.userAnswers[question.id];
+                    const isCorrect = userAnswer === question.correct;
+                    const answered = userAnswer !== undefined;
+                    
+                    html += `
+                        <div class="result-detail ${isCorrect ? 'correct' : (answered ? 'incorrect' : 'unanswered')}">
+                            <div class="result-header">
+                                <span class="result-number">Q${index + 1}</span>
+                                <span class="result-source">${question.source}</span>
+                                <span class="result-status">
+                                    ${isCorrect ? '✓ Correct' : (answered ? '✗ Incorrect' : '? Unanswered')}
+                                </span>
+                            </div>
+                            
+                            <div class="result-question">${question.question}</div>
+                            
+                            ${question.code ? `
+                                <div class="code-block">
+                                    <pre><code>${this.escapeHtml(question.code)}</code></pre>
+                                </div>
+                            ` : ''}
+                            
+                            ${answered ? `
+                                <div class="result-answer">
+                                    <strong>Your answer:</strong> ${question.options ? `${String.fromCharCode(65 + userAnswer)}. ${question.options[userAnswer]}` : 'N/A'}
+                                </div>
+                            ` : `
+                                <div class="result-answer" style="background: rgba(255, 193, 7, 0.1); border-left-color: #ffc107;">
+                                    <strong>Not answered</strong>
+                                </div>
+                            `}
+                            
+                            ${!isCorrect && question.options && question.correct !== undefined ? `
+                                <div class="result-correct">
+                                    <strong>Correct answer:</strong> ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}
+                                </div>
+                            ` : ''}
+                            
+                            ${question.explanation ? `
+                                <div class="result-explanation">
+                                    <strong>Explanation:</strong> ${question.explanation}
+                                </div>
+                            ` : ''}
+                            
+                            ${question.topic ? `
+                                <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                                    <strong>Topic:</strong> ${question.topic}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            calculateSourceStats() {
+                const sourceMap = new Map();
+                
+                // Initialize source statistics
+                this.selectedQuestions.forEach(question => {
+                    if (!sourceMap.has(question.source)) {
+                        sourceMap.set(question.source, { total: 0, correct: 0 });
+                    }
+                    sourceMap.get(question.source).total++;
+                    
+                    const userAnswer = this.userAnswers[question.id];
+                    if (userAnswer === question.correct) {
+                        sourceMap.get(question.source).correct++;
+                    }
+                });
+                
+                // Convert to array with percentages
+                return Array.from(sourceMap.entries()).map(([source, stats]) => ({
+                    source,
+                    total: stats.total,
+                    correct: stats.correct,
+                    percentage: Math.round((stats.correct / stats.total) * 100)
+                })).sort((a, b) => b.percentage - a.percentage);
+            }
+
+            getScoreClass(percentage) {
+                if (percentage >= 90) return 'excellent';
+                if (percentage >= 80) return 'good';
+                if (percentage >= 70) return 'average';
+                return 'poor';
+            }
+
+            formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${minutes}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            downloadResults() {
+                const { correct, total, percentage, timeTaken } = this.results;
+                const sourceStats = this.calculateSourceStats();
+                const unanswered = total - Object.keys(this.userAnswers).length;
+                
+                const content = `
+C++ COMPREHENSIVE EXAMINATION RESULTS
+====================================
+
+EXAM SUMMARY:
+Score: ${correct}/${total} (${percentage}%)
+Grade: ${this.calculateGrade(percentage).text}
+Grade Points: ${this.getGradePoint(percentage)}
+Time Taken: ${this.formatTime(timeTaken)}
+Questions Answered: ${total - unanswered}/${total}
+Unanswered: ${unanswered}
+Average Time per Question: ${Math.round(timeTaken / total)}s
+Exam Date: ${new Date().toLocaleDateString()}
+Exam Time: ${new Date().toLocaleTimeString()}
+
+PERFORMANCE BY SOURCE:
+${sourceStats.map(stat => 
+    `${stat.source}: ${stat.correct}/${stat.total} (${stat.percentage}%)`
+).join('\n')}
+
+DETAILED QUESTION ANALYSIS:
+${this.selectedQuestions.map((q, i) => {
+    const userAnswer = this.userAnswers[q.id];
+    const isCorrect = userAnswer === q.correct;
+    const answered = userAnswer !== undefined;
+    const status = isCorrect ? 'CORRECT' : (answered ? 'INCORRECT' : 'UNANSWERED');
+    
+    let detail = `\nQ${i+1}: ${status}`;
+    detail += `\nSource: ${q.source}`;
+    detail += `\nTopic: ${q.topic || 'General'}`;
+    detail += `\nQuestion: ${q.question.replace(/<[^>]*>/g, '')}`;
+    
+    if (q.options && answered) {
+        detail += `\nYour Answer: ${String.fromCharCode(65 + userAnswer)}. ${q.options[userAnswer]}`;
+    }
+    if (q.options && !isCorrect && q.correct !== undefined) {
+        detail += `\nCorrect Answer: ${String.fromCharCode(65 + q.correct)}. ${q.options[q.correct]}`;
+    }
+    if (q.explanation) {
+        detail += `\nExplanation: ${q.explanation.replace(/<[^>]*>/g, '')}`;
+    }
+    detail += '\n' + '-'.repeat(80);
+    
+    return detail;
+}).join('\n')}
+
+RECOMMENDATIONS:
+${this.getStudyRecommendations(sourceStats)}
+
+Generated by C++ Comprehensive Examination System
+                `.trim();
+                
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `cpp-exam-results-${new Date().toISOString().split('T')[0]}-${percentage}percent.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                // Show success message
+                this.showModal(
+                    '📁 Results Downloaded',
+                    'Your detailed exam results have been saved to your Downloads folder.',
+                    null
+                );
+            }
+
+            getStudyRecommendations(sourceStats) {
+                const weakAreas = sourceStats.filter(stat => stat.percentage < 80);
+                const strongAreas = sourceStats.filter(stat => stat.percentage >= 90);
+                
+                let recommendations = '';
+                
+                if (strongAreas.length > 0) {
+                    recommendations += `\nSTRONG AREAS (Keep practicing):\n`;
+                    recommendations += strongAreas.map(area => `- ${area.source}: ${area.percentage}%`).join('\n');
+                }
+                
+                if (weakAreas.length > 0) {
+                    recommendations += `\nAREAS FOR IMPROVEMENT (Focus study here):\n`;
+                    recommendations += weakAreas.map(area => `- ${area.source}: ${area.percentage}% - Review fundamentals`).join('\n');
+                }
+                
+                if (weakAreas.length === 0) {
+                    recommendations += '\nExcellent performance across all areas! Consider advanced C++ topics.';
+                } else if (weakAreas.length >= sourceStats.length / 2) {
+                    recommendations += '\nConsider reviewing C++ fundamentals and practicing more basic concepts.';
+                }
+                
+                return recommendations;
+            }
+
+            showModal(title, message, confirmCallback) {
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-message').textContent = message;
+                document.getElementById('modal').classList.add('active');
+                
+                this.modalConfirmCallback = confirmCallback;
+            }
+
+            hideModal() {
+                document.getElementById('modal').classList.remove('active');
+                this.modalConfirmCallback = null;
+            }
+
+            confirmAction() {
+                if (this.modalConfirmCallback) {
+                    this.modalConfirmCallback();
+                }
+                this.hideModal();
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the exam application
+        const exam = new CppComprehensiveExam();
+
+        // Start the application when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            exam.init();
+        });
+    </script>
+</body>
+</html>

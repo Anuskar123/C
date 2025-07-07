@@ -1,10 +1,14 @@
-// Main JavaScript for C++ Ultimate Question Bank
+// Main JavaScript for C++ Programming Question Bank
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeHamburgerMenu();
     initializeQuestions();
     loadWeekContent();
 });
+
+// Make exam preview function globally accessible
+window.showExamPreview = showExamPreview;
+window.closeExamPreview = closeExamPreview;
 
 // Hamburger menu functionality
 function initializeHamburgerMenu() {
@@ -190,6 +194,49 @@ function loadWeekQuestions(weekId) {
 // Get week data from separate week files
 function getWeekData(weekId) {
     console.log('Getting data for:', weekId);
+    
+    // Special handling for mixed section - now uses comprehensive C++ mixed questions
+    if (weekId === 'mixed') {
+        console.log('🎯 Mixed section requested - checking window.mixedData:', !!window.mixedData);
+        console.log('📊 Available window properties:', Object.keys(window).filter(key => key.includes('Data')));
+        
+        if (window.mixedData) {
+            console.log('✅ Mixed data found!', {
+                title: window.mixedData.title,
+                questionCount: window.mixedData.questions ? window.mixedData.questions.length : 'No questions',
+                hasCheatSheet: !!window.mixedData.cheatSheet
+            });
+            
+            // Validate the data structure
+            if (!window.mixedData.questions || !Array.isArray(window.mixedData.questions)) {
+                console.error('❌ Mixed data has invalid questions array');
+                return {
+                    title: 'C++ Programming Questions - Error',
+                    description: 'Mixed questions data is corrupted. Please refresh the page.',
+                    questions: []
+                };
+            }
+            
+            return window.mixedData;
+        } else {
+            console.error('❌ Mixed data not found! Check if cpp-mixed-questions.js is loaded properly');
+            console.log('🔍 All window properties with "mix":', Object.keys(window).filter(key => key.toLowerCase().includes('mix')));
+            
+            // Try to wait a bit and retry
+            setTimeout(() => {
+                if (window.mixedData) {
+                    console.log('⏰ Mixed data found after delay, reloading...');
+                    loadWeekQuestions('mixed');
+                }
+            }, 1000);
+            
+            return {
+                title: 'C++ Programming Questions - Loading...',
+                description: 'Loading C++ programming questions. If this persists, please refresh the page.',
+                questions: []
+            };
+        }
+    }
     
     // Special debug for mock exam
     if (weekId === 'mock-exam') {
@@ -449,7 +496,7 @@ function createQuestionHTML(question, index) {
                             </div>
                         ` : ''}
                         <h4>✅ Model Answer:</h4>
-                        <div class="answer">${question.answer}</div>
+                        <div class="answer">${getCorrectAnswer(question)}</div>
                         <h4>💡 Explanation:</h4>
                         <div class="explanation">${question.explanation}</div>
                     </div>
@@ -463,14 +510,15 @@ function createQuestionHTML(question, index) {
 
 // Create options HTML for MCQ questions
 function createOptionsHTML(question) {
-    if (!question.options || question.type !== 'MCQ') return '';
+    if (!question.options || (question.type !== 'MCQ' && question.type !== 'Multiple Choice')) return '';
     
     let optionsHTML = '<div class="options-container">';
     
     question.options.forEach((option, index) => {
         optionsHTML += `
             <button class="option-btn" data-question="${question.id}" data-option="${index}">
-                ${option}
+                <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                <span class="option-text">${option}</span>
             </button>
         `;
     });
@@ -586,199 +634,6 @@ function toggleOperatorPrecedence() {
     }
 }
 
-// Ultimate Exam functionality
-function showExamPreview() {
-    // Check if mixed exam engine is available
-    if (typeof mixedExamEngine === 'undefined') {
-        alert('⚠️ Exam system not loaded. Please refresh the page and try again.');
-        return;
-    }
-    
-    // Get statistics from mixed exam engine
-    const stats = mixedExamEngine.getQuestionStatistics();
-    const presets = mixedExamEngine.getExamPresets();
-    
-    // Create modal with exam preview
-    const modal = document.createElement('div');
-    modal.className = 'exam-preview-modal';
-    modal.innerHTML = `
-        <div class="modal-backdrop" onclick="closeExamPreview()"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>🎓 Ultimate Exam System Preview</h3>
-                <button class="modal-close" onclick="closeExamPreview()">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="preview-stats">
-                    <h4>📊 Available Questions</h4>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <span class="stat-number">${stats.totalQuestions}</span>
-                            <span class="stat-label">Total Questions</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">${Object.keys(stats.bySource).length}</span>
-                            <span class="stat-label">Question Banks</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">${Object.keys(presets).length}</span>
-                            <span class="stat-label">Exam Presets</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="preview-features">
-                    <h4>✨ Key Features</h4>
-                    <ul>
-                        <li>🎲 Fully randomized questions from all sources</li>
-                        <li>⏱️ Professional timer with warnings</li>
-                        <li>📋 Question navigation and review system</li>
-                        <li>💾 Auto-save progress</li>
-                        <li>📊 Detailed results and performance analysis</li>
-                        <li>🔄 Retake capability with different questions</li>
-                    </ul>
-                </div>
-                
-                <div class="preview-sources">
-                    <h4>📚 Question Sources</h4>
-                    <div class="sources-grid">
-                        ${Object.entries(stats.bySource).map(([source, count]) => `
-                            <div class="source-item">
-                                <span class="source-name">${source}</span>
-                                <span class="source-count">${count} questions</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeExamPreview()">Close Preview</button>
-                <button class="btn btn-primary" onclick="launchExam()">🚀 Launch Exam System</button>
-            </div>
-        </div>
-    `;
-    
-    // Add modal to page
-    document.body.appendChild(modal);
-    
-    // Add some basic styles for the modal
-    if (!document.querySelector('#exam-preview-styles')) {
-        const styles = document.createElement('style');
-        styles.id = 'exam-preview-styles';
-        styles.textContent = `
-            .exam-preview-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .modal-backdrop {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.7);
-            }
-            .modal-content {
-                position: relative;
-                background: white;
-                border-radius: 12px;
-                max-width: 600px;
-                width: 90%;
-                max-height: 80vh;
-                overflow-y: auto;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            }
-            .modal-header {
-                padding: 20px;
-                border-bottom: 1px solid #eee;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .modal-close {
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: #666;
-            }
-            .modal-body {
-                padding: 20px;
-            }
-            .modal-footer {
-                padding: 20px;
-                border-top: 1px solid #eee;
-                display: flex;
-                gap: 10px;
-                justify-content: flex-end;
-            }
-            .preview-stats, .preview-features, .preview-sources {
-                margin-bottom: 20px;
-            }
-            .stats-row {
-                display: flex;
-                gap: 20px;
-                margin-top: 10px;
-            }
-            .stat-item {
-                text-align: center;
-                flex: 1;
-            }
-            .stat-number {
-                display: block;
-                font-size: 24px;
-                font-weight: bold;
-                color: #0066cc;
-            }
-            .stat-label {
-                display: block;
-                font-size: 12px;
-                color: #666;
-            }
-            .sources-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
-                margin-top: 10px;
-            }
-            .source-item {
-                padding: 10px;
-                background: #f5f5f5;
-                border-radius: 6px;
-                display: flex;
-                justify-content: space-between;
-            }
-            .source-name {
-                font-weight: 500;
-            }
-            .source-count {
-                color: #666;
-                font-size: 14px;
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-}
-
-function closeExamPreview() {
-    const modal = document.querySelector('.exam-preview-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
-
-function launchExam() {
-    window.open('exam.html', '_blank');
-    closeExamPreview();
-}
-
 // Initialize exam preset buttons when page loads
 function initializeExamPresets() {
     const presetButtons = document.querySelectorAll('.btn-preset');
@@ -828,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Initialize the application
-console.log('C++ Ultimate Question Bank initialized!');
+console.log('C++ Programming Question Bank initialized!');
 if (window.week1Data) {
     console.log('Week-based question files loaded successfully!');
 } else {
@@ -852,4 +707,169 @@ if (window.mockExamData) {
     console.log('Mock exam questions count:', window.mockExamData.questions ? window.mockExamData.questions.length : 'No questions');
 } else {
     console.error('Mock exam data is not available on window object!');
+}
+
+// Get correct answer for different question types
+function getCorrectAnswer(question) {
+    if (question.type === "Multiple Choice" && question.options && question.options[question.correct] !== undefined) {
+        return `<strong>Option ${String.fromCharCode(65 + question.correct)}</strong>: ${question.options[question.correct]}`;
+    } else if (question.answer) {
+        return question.answer;
+    } else {
+        return "Answer not available";
+    }
+}
+
+// Show comprehensive exam preview
+function showExamPreview() {
+    console.log('🔍 Preview function called');
+    
+    // Collect sample questions from different sources
+    const sampleQuestions = [];
+    
+    // Add sample from each week (first question only)
+    for (let i = 1; i <= 9; i++) {
+        const weekDataName = `week${i}Data`;
+        console.log(`Checking ${weekDataName}:`, !!window[weekDataName]);
+        if (window[weekDataName] && window[weekDataName].questions && window[weekDataName].questions.length > 0) {
+            sampleQuestions.push({
+                source: `Week ${i}`,
+                question: window[weekDataName].questions[0]
+            });
+            console.log(`✅ Added sample from Week ${i}`);
+        }
+    }
+    
+    // Add sample from mock exam
+    console.log('Checking mockExamData:', !!window.mockExamData);
+    if (window.mockExamData && window.mockExamData.questions && window.mockExamData.questions.length > 0) {
+        sampleQuestions.push({
+            source: "Mock Exam",
+            question: window.mockExamData.questions[0]
+        });
+        console.log('✅ Added sample from Mock Exam');
+    }
+    
+    // Add sample from TCA mock
+    console.log('Checking tcaMockData:', !!window.tcaMockData);
+    if (window.tcaMockData && window.tcaMockData.questions && window.tcaMockData.questions.length > 0) {
+        sampleQuestions.push({
+            source: "TCA Mock",
+            question: window.tcaMockData.questions[0]
+        });
+        console.log('✅ Added sample from TCA Mock');
+    }
+    
+    // Add fallback sample questions if no data is available
+    if (sampleQuestions.length === 0) {
+        console.log('⚠️ No question data found, using fallback samples');
+        sampleQuestions.push(
+            {
+                source: "Sample - Basic Syntax",
+                question: {
+                    question: "What is the correct syntax to include the iostream library in C++?",
+                    options: ["include <iostream>", "#include <iostream>", "using iostream;", "import iostream;"],
+                    type: "Multiple Choice"
+                }
+            },
+            {
+                source: "Sample - Data Types",
+                question: {
+                    question: "Which data type is used to store decimal numbers with double precision?",
+                    options: ["int", "float", "double", "char"],
+                    type: "Multiple Choice"
+                }
+            },
+            {
+                source: "Sample - Operators",
+                question: {
+                    question: "What is the result of 5 + 3 * 2 in C++?",
+                    options: ["16", "11", "13", "10"],
+                    type: "Multiple Choice"
+                }
+            }
+        );
+    }
+    
+    console.log(`📊 Total sample questions: ${sampleQuestions.length}`);
+    
+    console.log(`📊 Total sample questions: ${sampleQuestions.length}`);
+    
+    // Create preview modal content
+    const previewHTML = `
+        <div class="preview-modal" id="previewModal">
+            <div class="preview-content">
+                <div class="preview-header">
+                    <h3>🔍 Comprehensive Exam - Question Preview</h3>
+                    <button class="close-preview" onclick="closeExamPreview()">×</button>
+                </div>
+                <div class="preview-body">
+                    <p class="preview-intro">Here are sample questions from different sections of the comprehensive exam:</p>
+                    ${sampleQuestions.slice(0, 5).map((item, index) => `
+                        <div class="preview-question">
+                            <div class="preview-source">${item.source}</div>
+                            <div class="preview-question-text">${item.question.question}</div>
+                            ${item.question.code ? `
+                                <pre class="preview-code"><code>${item.question.code}</code></pre>
+                            ` : ''}
+                            ${item.question.options ? `
+                                <div class="preview-options">
+                                    ${item.question.options.map((option, i) => `
+                                        <div class="preview-option">
+                                            ${String.fromCharCode(65 + i)}. ${option}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            <div class="preview-type">Type: ${item.question.type || 'Multiple Choice'}</div>
+                        </div>
+                    `).join('')}
+                    <div class="preview-footer">
+                        <p><strong>Note:</strong> The actual exam will randomly select questions from all available sources and present them in a timed format.</p>
+                        <button class="btn btn-primary" onclick="window.open('cpp-comprehensive-exam.html', '_blank')">
+                            🚀 Launch Full Exam
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove any existing preview modal
+    const existingModal = document.getElementById('previewModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add modal to document
+    document.body.insertAdjacentHTML('beforeend', previewHTML);
+    console.log('✅ Preview modal created and added to DOM');
+    
+    // Add event listener to close on backdrop click
+    const modal = document.getElementById('previewModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeExamPreview();
+            }
+        });
+        console.log('✅ Modal event listeners added');
+    } else {
+        console.error('❌ Modal not found after creation');
+    }
+}
+
+// Close exam preview modal
+function closeExamPreview() {
+    console.log('🔒 Closing preview modal');
+    const modal = document.getElementById('previewModal');
+    if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+            modal.remove();
+            console.log('✅ Preview modal removed');
+        }, 300);
+    } else {
+        console.log('⚠️ Preview modal not found');
+    }
 }
